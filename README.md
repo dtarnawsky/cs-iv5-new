@@ -36,3 +36,16 @@ javax.crypto.IllegalBlockSizeException
 2022-01-25 12:39:39.224 18086-18086/io.ionic.gettingstartedivangular W/System.err:     at android.security.keystore.KeyStoreCryptoOperationChunkedStreamer.doFinal(KeyStoreCryptoOperationChunkedStreamer.java:169)
 2022-01-25 12:39:39.224 18086-18086/io.ionic.gettingstartedivangular W/System.err:     at android.security.keystore.AndroidKeyStoreCipherSpiBase.engineDoFinal(AndroidKeyStoreCipherSpiBase.java:506)
 2022-01-25 12:39:39.224 18086-18086/io.ionic.gettingstartedivangular W/System.err: 	... 13 more
+
+## Timing Test
+- Open `node_modules/@ionic-enterprise/identity-vault/src/android/com/ionicframework/IdentityVault/AsymmetricCrypto.java`
+- Insert on line 45 `.setKeySize(4096)` 
+
+Here's an example of the change:
+```java
+                .setUserAuthenticationRequired(true)                
+                .setKeySize(4096)
+                .setEncryptionPaddings(KeyProperties.ENCRYPTION_PADDING_RSA_PKCS1);
+```
+
+Run the application and change the lock type. It will show the amount of time it takes to generate a key of that particular size.
