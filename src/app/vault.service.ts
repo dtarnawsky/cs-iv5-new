@@ -146,14 +146,16 @@ export class VaultService {
         type = VaultType.SecureStorage;
         deviceSecurityType = DeviceSecurityType.None;
     }
-    console.log('Clear vault');
-    await this.vault.clear();
-    console.log('Clear vault done');
-    setTimeout(async () => {
-      const newConfig = { ...this.vault.config, type, deviceSecurityType };
-      console.log('updateConfig called to lock as ' + type + ' ' + deviceSecurityType, JSON.stringify(newConfig));
-      await this.vault.updateConfig(newConfig);
-    }, 1000);
+    // console.log('Clear vault');
+    // await this.vault.clear();
+    // console.log('Clear vault done');
+
+    const startTime = performance.now();
+    const newConfig = { ...this.vault.config, type, deviceSecurityType };
+    console.log('updateConfig called to lock as ' + type + ' ' + deviceSecurityType, JSON.stringify(newConfig));
+    await this.vault.updateConfig(newConfig);
+    const endTime = performance.now();
+    alert(`updateConfig took ${endTime - startTime} milliseconds`);
   }
 
   async clearVault() {
